@@ -7,8 +7,8 @@ dir.create("synth_data", showWarnings = FALSE)
 N <- 1000
 
 # simulation "runs" to cycle though
-para_df <- data.frame(spec_snr  = rep(c(10, 30, 60), 2),
-                      prob_dist = rep(c("norm", "unif"), each = 3))
+para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
+                      prob_dist = rep(c("norm", "unif"), each = 4))
 
 # set acquisition parameters
 acq_paras <- def_acq_paras()
@@ -26,8 +26,9 @@ write.csv(data.frame(t(amps)), file.path("synth_data", "true_amps.csv"),
 write_basis(basis, file.path("synth_data", "brain_basis.basis"))
 
 # re-read basis from file to ensure consistent rounding errors from conversion
-# between acsii and floats
-basis <- read_basis(file.path("synth_data", "brain_basis.basis"))
+# between acsii and floats, ensure ordering isn't changed
+basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
+                    sort_basis = FALSE)
 
 # generate a dataframe of metabolite values
 amps_df <- data.frame(t(amps))

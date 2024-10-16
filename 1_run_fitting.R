@@ -20,11 +20,12 @@ time_str <- format(Sys.time(), "%d_%H_%M_%S")
 log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 
 # simulation "runs" to cycle though
-para_df <- data.frame(spec_snr  = rep(c(10, 30, 60), 2),
-                      prob_dist = rep(c("norm", "unif"), each = 3))
+para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
+                      prob_dist = rep(c("norm", "unif"), each = 4))
 
 # read basis
-basis <- read_basis(file.path("synth_data", "brain_basis.basis"))
+basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
+                    sort_basis = FALSE)
 
 # read water reference data
 wref <- read_mrs(file.path("synth_data", "wref.nii.gz"))

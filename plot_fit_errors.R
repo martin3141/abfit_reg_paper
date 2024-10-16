@@ -4,10 +4,10 @@ library(dplyr)
 
 true_amps <- read.csv(file.path("synth_data", "true_amps.csv"))
 fit_amps  <- read.csv(file.path("fitting_results",
-                                "fit_amps_snr_10_pdist_norm.csv"))
+                                "fit_amps_snr_100_pdist_norm.csv"))
 
 # make sure the ordering is correct
-true_amps <- true_amps[colnames(fit_amps)[1:29]]
+# true_amps <- true_amps[,colnames(fit_amps)[1:29]]
 
 N_spec    <- max(fit_amps$num)
 N_methods <- length(unique(fit_amps$method))
