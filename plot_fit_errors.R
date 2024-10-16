@@ -6,6 +6,11 @@ true_amps <- read.csv(file.path("synth_data", "true_amps.csv"))
 fit_amps  <- read.csv(file.path("fitting_results",
                                 "fit_amps_snr_100_pdist_norm.csv"))
 
+# check the basis ordering hasn't been confused
+if (!identical(colnames(true_amps), colnames(fit_amps)[1:length(true_amps)])) {
+  stop("fit and true names do not match")
+}
+
 # make sure the ordering is correct
 # true_amps <- true_amps[,colnames(fit_amps)[1:29]]
 
