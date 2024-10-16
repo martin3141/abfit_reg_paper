@@ -1,0 +1,5 @@
+synth_data
+log
+slurm*
+.*
+!.gitignore
