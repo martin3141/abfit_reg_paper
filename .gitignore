@@ -1,5 +1,6 @@
 synth_data
 log
+fitting_results
 slurm*
 .*
 !.gitignore

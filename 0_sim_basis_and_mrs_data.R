@@ -66,7 +66,8 @@ for (n in 1:nrow(para_df)) {
       shifts <- rnorm(length(basis$names), 0, freq_sd)
     } else if (prob_dist == "unif") {
       # 95% within 1.96 standard deviations
-      lbs    <- runif(length(basis$names), lb_ex - lb_sd * 1.96, lb_ex + lb_sd * 1.96) 
+      lbs    <- runif(length(basis$names), lb_ex - lb_sd * 1.96,
+                      lb_ex + lb_sd * 1.96) 
       shifts <- rnorm(length(basis$names), -1.96 * freq_sd, 1.96 * freq_sd)
     } else {
       stop("prob_dist not recognised")
