@@ -1,5 +1,6 @@
 synth_data
 log
+figures
 fitting_results*
 slurm*
 .*
