@@ -1,6 +1,7 @@
 synth_data
 log
-fitting_results
+fitting_results*
 slurm*
 .*
 !.gitignore
+.Rproj.user

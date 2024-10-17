@@ -23,6 +23,11 @@ log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
                       prob_dist = rep(c("norm", "unif"), each = 4))
 
+# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
+#                       prob_dist = rep(c("norm"), each = 4))
+
+# para_df <- data.frame(spec_snr = 100, prob_dist = "norm")
+
 # read basis
 basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
                     sort_basis = FALSE)
@@ -56,7 +61,7 @@ for (n in 1:nrow(para_df)) {
   
   # abfit-reg
   log_print("running abfit-reg")
-  abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = 0.50,
+  abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = 0.55,
                                   freq_reg = 0.004, max_basis_shift = Inf,
                                   max_basis_damping = Inf,
                                   max_shift_fine = 0.05, maxiters = 128,
