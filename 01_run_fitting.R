@@ -1,8 +1,11 @@
 library(spant)
 library(logr)
 
+# results dir
+fit_res_dir <- "fitting_results_01"
+
 # create an output dir
-dir.create("fitting_results", showWarnings = FALSE)
+dir.create(fit_res_dir, showWarnings = FALSE)
 
 # do fitting in parallel?
 parallel <- TRUE
@@ -20,13 +23,13 @@ time_str <- format(Sys.time(), "%d_%H_%M_%S")
 log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 
 # simulation "runs" to cycle though
-para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
-                      prob_dist = rep(c("norm", "unif"), each = 4))
+# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
+#                       prob_dist = rep(c("norm", "unif"), each = 4))
 
-# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
-#                       prob_dist = rep(c("norm"), each = 4))
+para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
+                      prob_dist = rep(c("norm"), each = 4))
 
-# para_df <- data.frame(spec_snr = 100, prob_dist = "norm")
+# para_df <- data.frame(spec_snr = 10, prob_dist = "norm")
 
 # read basis
 basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
@@ -61,11 +64,11 @@ for (n in 1:nrow(para_df)) {
   
   # abfit-reg
   log_print("running abfit-reg")
-  abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = 0.55,
+  abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = "lcm_compat",
                                   freq_reg = 0.004, max_basis_shift = Inf,
                                   max_basis_damping = Inf,
-                                  max_shift_fine = 0.05, maxiters = 128,
-                                  adaptive_bl_comps_pppm = TRUE)
+                                  max_shift_fine = 0.005, maxiters = 128,
+                                  adaptive_bl_comps_pppm = TRUE, max_asym = 0.25)
   
   abfit_reg_res <- fit_mrs(metab, basis, method = "abfit",
                            opts = abfit_reg_options, parallel = parallel,
@@ -91,12 +94,12 @@ for (n in 1:nrow(para_df)) {
   all_fit_amps['num'] <- rep(1:N, 3)
   
   out_f <- paste0("fit_amps_snr_", spec_snr, "_pdist_", prob_dist, ".csv")
-  write.csv(all_fit_amps, file.path("fitting_results", out_f),
+  write.csv(all_fit_amps, file.path(fit_res_dir, out_f),
             row.names = FALSE)
   
   out_f <- paste0("fit_res_snr_", spec_snr, "_pdist_", prob_dist, ".rds")
   fit_results <- list(abfit_res, abfit_reg_res, lcm_res)
-  saveRDS(fit_results, file.path("fitting_results", out_f))
+  saveRDS(fit_results, file.path(fit_res_dir, out_f))
 }
 
 log_close()

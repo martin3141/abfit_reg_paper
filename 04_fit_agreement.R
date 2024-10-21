@@ -3,14 +3,8 @@ library(ggsignif)
 library(dplyr)
 library(cowplot)
 
-res_dir <- "fitting_results_lb_reg_0p1"
 res_dir <- "fitting_results_lb_init_0p55"
-res_dir <- "fitting_results_lb_reg_0p05"
-res_dir <- "fitting_results_lb_reg_0p005"
-# res_dir <- "fitting_results_max_iters_64"
-res_dir <- "fitting_results_lcm_compat"
-res_dir <- "fitting_results_lb_reg_0p05"
-res_dir <- "fitting_results_max_asy_0.1"
+res_dir <- "fitting_results"
 
 # create an output dir for the figures
 dir.create("figures", showWarnings = FALSE)
@@ -18,6 +12,7 @@ dir.create("figures", showWarnings = FALSE)
 true_amps <- read.csv(file.path("synth_data", "true_amps.csv"))
 
 SNRS <- c("10", "30", "60", "100")
+# SNRS <- c("10", "30", "60")
 
 fit_amps <- vector("list", length(SNRS))
 
@@ -49,7 +44,60 @@ for (n in 1:length(SNRS)) {
   fit_errors_plot[[n]]     <- fit_errors_cut
 }
 
+colSums((fit_errors ^ 2)[1:1000,])
+colSums((fit_errors ^ 2)[1001:2000,])
+colSums((fit_errors ^ 2)[2001:3000,])
 
+
+abfit_reg <- fit_amps |> filter(method == "ABfit-reg") |> select(-c(method, num))
+abfit     <- fit_amps |> filter(method == "ABfit") |> select(-c(method, num))
+lcmodel   <- fit_amps |> filter(method == "LCModel") |> select(-c(method, num))
+
+x <- (lcmodel$GABA + abfit$GABA) / 2
+y <- lcmodel$GABA - abfit$GABA
+
+plot(x, y)
+
+x <- (lcmodel$GABA + abfit_reg$GABA) / 2
+y <- lcmodel$GABA - abfit_reg$GABA
+
+plot(x, y)
+
+x <- (lcmodel$Glu + abfit$Glu) / 2
+y <- lcmodel$Glu - abfit$Glu
+
+plot(x, y)
+
+x <- (lcmodel$Glu + abfit_reg$Glu) / 2
+y <- lcmodel$Glu - abfit_reg$Glu
+
+plot(x, y)
+
+mean(lcmodel$Glu - true_amps$Glu)
+mean(abfit_reg$Glu - true_amps$Glu)
+
+mean(lcmodel$GABA - true_amps$GABA)
+mean(abfit_reg$GABA - true_amps$GABA)
+
+mean(lcmodel$NAA - true_amps$NAA)
+mean(abfit_reg$NAA - true_amps$NAA)
+
+sum((lcmodel$NAA - true_amps$NAA)^2)
+sum((abfit_reg$NAA - true_amps$NAA)^2)
+
+sum((lcmodel$NAAG - true_amps$NAAG)^2)
+sum((abfit_reg$NAAG - true_amps$NAAG)^2)
+
+(lcmodel$NAA + lcmodel$NAAG - true_amps$NAA - true_amps$NAAG) |> plot()
+(abfit_reg$NAA + abfit_reg$NAAG - true_amps$NAA - true_amps$NAAG) |> plot()
+
+(lcmodel$GABA - true_amps$GABA) |> plot()
+(abfit_reg$GABA - true_amps$GABA) |> plot()
+
+(lcmodel$NAAG - true_amps$NAAG) |> plot()
+(abfit_reg$NAA - true_amps$NAA) |> plot()
+
+break
 
 max_y <- fit_errors_plot[[1]] |> filter(method == "ABfit") |> select(error) |> 
   unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
@@ -107,8 +155,4 @@ labs <- paste0(c("SNR = "), c(10, 30, 60, 100))
 plot_grid(plot_a, plot_b, plot_c, plot_d, labels = labs, label_size = 11, 
           scale = 0.95, label_x = 0.38, align = "v")
 
-ggsave(file.path("figures", "fit_res_norm.pdf"), width = 6, height = 5)
-
-
-fit_errors_plot[[1]] |> filter(method == "LCModel")   |> select(error) |> colMeans()
-fit_errors_plot[[1]] |> filter(method == "ABfit-reg") |> select(error) |> colMeans()
+ggsave(file.path("figures", "fit_res_norm.pdf"), scale = 0.8)

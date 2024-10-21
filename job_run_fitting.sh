@@ -19,4 +19,4 @@ module load bear-apps/2023a
 module load R/4.4.1-gfbf-2023a
 module load R-bundle-CRAN/2024.06-foss-2023a
 
-Rscript 1_run_fitting.R
+Rscript 01_run_fitting.R
