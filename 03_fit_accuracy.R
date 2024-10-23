@@ -3,14 +3,9 @@ library(ggsignif)
 library(dplyr)
 library(cowplot)
 
-res_dir <- "fitting_results_lb_reg_0p1"
-res_dir <- "fitting_results_lb_init_0p55"
-res_dir <- "fitting_results_lb_reg_0p05"
-res_dir <- "fitting_results_lb_reg_0p005"
-# res_dir <- "fitting_results_max_iters_64"
-res_dir <- "fitting_results_lcm_compat"
-res_dir <- "fitting_results_lb_reg_0p05"
-res_dir <- "fitting_results_max_asy_0.1"
+theme_set(theme_classic())
+
+res_dir <- "fitting_results"
 
 # create an output dir for the figures
 dir.create("figures", showWarnings = FALSE)
@@ -35,8 +30,6 @@ for (n in 1:length(SNRS)) {
     stop("fit and true names do not match")
   }
   
-  theme_set(theme_classic())
-  
   N_spec    <- max(fit_amps$num)
   N_methods <- length(unique(fit_amps$method))
   N_basis   <- ncol(true_amps)
@@ -48,8 +41,6 @@ for (n in 1:length(SNRS)) {
   fit_errors_cut['num']    <- fit_amps['num']
   fit_errors_plot[[n]]     <- fit_errors_cut
 }
-
-
 
 max_y <- fit_errors_plot[[1]] |> filter(method == "ABfit") |> select(error) |> 
   unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
@@ -112,3 +103,4 @@ ggsave(file.path("figures", "fit_res_norm.pdf"), width = 6, height = 5)
 
 fit_errors_plot[[1]] |> filter(method == "LCModel")   |> select(error) |> colMeans()
 fit_errors_plot[[1]] |> filter(method == "ABfit-reg") |> select(error) |> colMeans()
+

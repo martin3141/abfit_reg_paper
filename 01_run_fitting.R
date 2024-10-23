@@ -2,7 +2,7 @@ library(spant)
 library(logr)
 
 # results dir
-fit_res_dir <- "fitting_results_01"
+fit_res_dir <- "fitting_results_05"
 
 # create an output dir
 dir.create(fit_res_dir, showWarnings = FALSE)
@@ -36,7 +36,7 @@ basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
                     sort_basis = FALSE)
 
 # read water reference data
-wref <- read_mrs(file.path("synth_data", "wref.nii.gz"))
+wref  <- read_mrs(file.path("synth_data", "wref.nii.gz"))
 
 for (n in 1:nrow(para_df)) {
   log_print(paste("simulation run :", n))
@@ -67,14 +67,15 @@ for (n in 1:nrow(para_df)) {
   abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = "lcm_compat",
                                   freq_reg = 0.004, max_basis_shift = Inf,
                                   max_basis_damping = Inf,
-                                  max_shift_fine = 0.005, maxiters = 128,
-                                  adaptive_bl_comps_pppm = TRUE, max_asym = 0.25)
+                                  max_shift_fine = 0.05, maxiters = 128,
+                                  adaptive_bl_comps_pppm = TRUE,
+                                  max_asym = Inf, asym_reg = 0.1)
   
   abfit_reg_res <- fit_mrs(metab, basis, method = "abfit",
                            opts = abfit_reg_options, parallel = parallel,
                            cl = cl)
   
-  abfit_reg_res     <- abfit_reg_res |> scale_amp_molar(wref)
+  abfit_reg_res <- abfit_reg_res |> scale_amp_molar(wref)
   
   # lcmodel
   lcm_options   <- c("NSIMUL=0", "NRATIO=0")
