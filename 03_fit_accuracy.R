@@ -21,6 +21,7 @@ fit_errors_plot <- vector("list", length(SNRS))
 for (n in 1:length(SNRS)) {
   
   fname <- paste0("fit_amps_snr_", SNRS[n], "_pdist_norm.csv")
+  # fname <- paste0("fit_amps_snr_", SNRS[n], "_pdist_unif.csv")
   
   fit_amps <- read.csv(file.path(res_dir, fname))
   
@@ -95,12 +96,20 @@ plot_d <- ggplot(data = fit_errors_plot[[4]], aes(x = method, y = error)) +
   xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.45))
 
 labs <- paste0(c("SNR = "), c(10, 30, 60, 100))
+
+options(warn = -1)
 plot_grid(plot_a, plot_b, plot_c, plot_d, labels = labs, label_size = 11, 
           scale = 0.95, label_x = 0.38, align = "v")
+options(warn = 0)
 
 ggsave(file.path("figures", "fit_res_norm.pdf"), width = 6, height = 5)
 
+lcmodel_errors <- sapply(fit_errors_plot, \(x) x |> 
+                         filter(method == "LCModel") |> select(error) |> 
+                         colMeans() |> as.numeric())
 
-fit_errors_plot[[1]] |> filter(method == "LCModel")   |> select(error) |> colMeans()
-fit_errors_plot[[1]] |> filter(method == "ABfit-reg") |> select(error) |> colMeans()
+abfit_reg_errors <- sapply(fit_errors_plot, \(x) x |> 
+                           filter(method == "ABfit-reg") |> select(error) |> 
+                           colMeans() |> as.numeric())
 
+data.frame(as.numeric(SNRS), abfit_reg_errors, lcmodel_errors)

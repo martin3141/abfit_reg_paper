@@ -2,7 +2,7 @@ library(spant)
 library(logr)
 
 # results dir
-fit_res_dir <- "fitting_results_05"
+fit_res_dir <- "fitting_results_07"
 
 # create an output dir
 dir.create(fit_res_dir, showWarnings = FALSE)
@@ -23,11 +23,11 @@ time_str <- format(Sys.time(), "%d_%H_%M_%S")
 log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 
 # simulation "runs" to cycle though
-# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
-#                       prob_dist = rep(c("norm", "unif"), each = 4))
+para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
+                      prob_dist = rep(c("norm", "unif"), each = 4))
 
-para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
-                      prob_dist = rep(c("norm"), each = 4))
+# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
+#                       prob_dist = rep(c("norm"), each = 4))
 
 # para_df <- data.frame(spec_snr = 10, prob_dist = "norm")
 

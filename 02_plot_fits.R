@@ -12,27 +12,26 @@ fits_c <- readRDS(file.path("fitting_results",
 
 fit_n <- 100
 
-a <- function() fits_a[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_a <- function() fits_a[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit, SNR = 10")
-b <- function() fits_a[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_b <- function() fits_a[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit-reg, SNR = 10")
-c <- function() fits_a[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_c <- function() fits_a[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "LCModel, SNR = 10")
-
-d <- function() fits_b[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_d <- function() fits_b[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit, SNR = 30")
-e <- function() fits_b[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_e <- function() fits_b[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit-reg, SNR = 30")
-f <- function() fits_b[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_f <- function() fits_b[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "LCModel, SNR = 30")
-
-g <- function() fits_c[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_g <- function() fits_c[[1]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit, SNR = 100")
-h <- function() fits_c[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_h <- function() fits_c[[2]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "ABfit-reg, SNR = 100")
-i <- function() fits_c[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
+plot_i <- function() fits_c[[3]] |> plot(n = fit_n, restore_def_par = FALSE,
                                     main = "LCModel, SNR = 100")
 
 pdf(file.path("figures", "fits_plot.pdf"), width = 10, height = 10)
-plot_grid(a, b, c, d, e, f, g, h, i, ncol = 3)
+plot_grid(plot_a, plot_b, plot_c, plot_d, plot_e, plot_f, plot_g, plot_h,
+          plot_i, ncol = 3)
 dev.off()
