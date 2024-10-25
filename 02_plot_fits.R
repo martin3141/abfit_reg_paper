@@ -1,6 +1,9 @@
 library(spant)
 library(cowplot)
 
+# create an output dir for the figures
+dir.create("figures", showWarnings = FALSE)
+
 fits_a <- readRDS(file.path("fitting_results",
                             "fit_res_snr_10_pdist_norm.rds"))
 
