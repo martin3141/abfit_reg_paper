@@ -2,7 +2,7 @@ library(spant)
 library(logr)
 
 # results dir
-fit_res_dir <- "fitting_results_07"
+fit_res_dir <- "fitting_results"
 
 # create an output dir
 dir.create(fit_res_dir, showWarnings = FALSE)
