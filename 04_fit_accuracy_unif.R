@@ -55,7 +55,7 @@ plot_a <- ggplot(data = fit_errors_plot[[1]], aes(x = method, y = error)) +
   geom_boxplot(width = 0.15, outliers = FALSE) +
   geom_signif(comparisons = comps, test = "t.test",
               map_signif_level = signif_map,
-              y_position = max_y * 1.1, tip_length = 0.02, textsize = 3.5,
+              y_position = max_y * 1.1, tip_length = 0.015, textsize = 3.5,
               vjust = -0.2) +
   xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.36))
 
@@ -67,7 +67,7 @@ plot_b <- ggplot(data = fit_errors_plot[[2]], aes(x = method, y = error)) +
   geom_boxplot(width = 0.15, outliers = FALSE) +
   geom_signif(comparisons = comps, test = "t.test",
               map_signif_level = signif_map,
-              y_position = max_y, tip_length = 0.010, textsize = 3.5,
+              y_position = max_y * 1.1, tip_length = 0.014, textsize = 3.5,
               vjust = -0.2) +
   xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.33))
 
@@ -79,9 +79,9 @@ plot_c <- ggplot(data = fit_errors_plot[[3]], aes(x = method, y = error)) +
   geom_boxplot(width = 0.15, outliers = FALSE) +
   geom_signif(comparisons = comps, test = "t.test",
               map_signif_level = signif_map,
-              y_position = 25, tip_length = 0.005, textsize = 3.5,
+              y_position = 14, tip_length = 0.01, textsize = 3.5,
               vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 43))
+  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 18))
 
 max_y <- fit_errors_plot[[4]] |> filter(method == "ABfit") |> select(error) |> 
   unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
@@ -91,9 +91,9 @@ plot_d <- ggplot(data = fit_errors_plot[[4]], aes(x = method, y = error)) +
   geom_boxplot(width = 0.15, outliers = FALSE) +
   geom_signif(comparisons = comps, test = "t.test",
               map_signif_level = signif_map,
-              y_position = 20, tip_length = 0.005, textsize = 3.5,
+              y_position = 9.1, tip_length = 0.008, textsize = 3.5,
               vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 38))
+  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 12))
 
 labs <- paste0(c("SNR = "), c(10, 30, 60, 100))
 
