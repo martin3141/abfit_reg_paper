@@ -52,7 +52,6 @@ ba_plot <- function(a, b, title = "title", ylim = NULL) {
     annotate("text", x = xlab_pos, y = upper_loa, label = round(upper_loa, 2), hjust = 1) +
     annotate("text", x = xlab_pos, y = bias, label = round(bias, 2), hjust = 1) +
     annotate("text", x = xlab_pos, y = lower_loa, label = round(lower_loa, 2), hjust = 1)
-    # coord_cartesian(clip = "off")
 }
 
 ba_title <- "GABA estimates of ABfit vs LCModel"

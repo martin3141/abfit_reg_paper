@@ -26,11 +26,6 @@ log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
                       prob_dist = rep(c("norm", "unif"), each = 4))
 
-# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100)),
-#                       prob_dist = rep(c("norm"), each = 4))
-
-# para_df <- data.frame(spec_snr = 10, prob_dist = "norm")
-
 # read basis
 basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
                     sort_basis = FALSE)

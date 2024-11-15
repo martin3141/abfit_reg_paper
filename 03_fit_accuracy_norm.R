@@ -21,7 +21,6 @@ fit_errors_plot <- vector("list", length(SNRS))
 for (n in 1:length(SNRS)) {
   
   fname <- paste0("fit_amps_snr_", SNRS[n], "_pdist_norm.csv")
-  # fname <- paste0("fit_amps_snr_", SNRS[n], "_pdist_unif.csv")
   
   fit_amps <- read.csv(file.path(res_dir, fname))
   
