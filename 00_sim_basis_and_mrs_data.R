@@ -1,4 +1,7 @@
-library(spant)
+# install any necessary packages
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(spant, logr, cowplot, ggplot2, ggsignif, dplyr, cowplot, 
+               parallel, doParallel)
 
 # create an output dir
 dir.create("synth_data", showWarnings = FALSE)
