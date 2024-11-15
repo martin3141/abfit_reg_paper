@@ -8,7 +8,8 @@ Rscript 01_run_fitting.R
 
 ...
 
-R version 4.4.1 has been tested, however other recent versions should also work.
+R must be installed <https://www.r-project.org/> and version 4.4.1 has been
+tested, however other recent versions should also work.
 
 All required R packages (including spant) will be automatically installed when
 running the first script : 00_sim_basis_and_mrs_data.R.
@@ -22,7 +23,8 @@ check_lcm()
 ```
 
 in R to confirm LCModel is correctly installed. The `set_lcm_cmd()` function can
-be used if LCModel is installed elsewhere.
+be used if LCModel is installed elsewhere. Binaries for LCModel are available
+from : <https://github.com/schorschinho/LCModel>
 
 01_run_fitting.R is configured to be run on a computer cluster with 24 cores and
 the accompanying slurm job file is included : job_run_fitting.sh. The `parallel`
