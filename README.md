@@ -10,19 +10,37 @@ Rscript 01_run_fitting.R
 
 R version 4.4.1 has been tested, however other recent versions should also work.
 
-All required package dependencies (including spant) will be automatically installed when running the first script : 00_sim_basis_and_mrs_data.R.
+All required R packages (including spant) will be automatically installed when
+running the first script : 00_sim_basis_and_mrs_data.R.
 
-01_run_fitting.R is configured to be run on a computer cluster with 24 cores and the accompanying slurm job file is included : job_run_fitting.sh. The `parallel` and `n_cores` variables in the R script may need to edited if running on a PC. This script will take *significantly* longer than the others (approx 40 mins on a modern cluster running in parallel across 24 cores).
+The LCModel binary must also be installed in the user's home directory
+(eg ~/lcmodel). Run:
+
+```
+library(spant)
+check_lcm() 
+```
+
+in R to confirm LCModel is correctly installed. The `set_lcm_cmd()` function can
+be used if LCModel is installed elsewhere.
+
+01_run_fitting.R is configured to be run on a computer cluster with 24 cores and
+the accompanying slurm job file is included : job_run_fitting.sh. The `parallel`
+and `n_cores` variables in the R script may need to edited if running on a PC.
+This script will take *significantly* longer than the others (approx 40 mins on 
+a modern cluster running in parallel across 24 cores).
 
 ## Expected output
 
 ### 00_sim_basis_and_mrs_data.R
 
-All synthetic MRS data, basis set and true amplitudes will be saved in the "synth_data" directory.
+All synthetic MRS data, basis set and true amplitudes will be saved in the
+"synth_data" directory.
 
 ### 01_run_fitting.R
 
-All MRS analyses will be run and results saved in the "fitting_results" directory.
+All MRS analyses will be run and results saved in the "fitting_results"
+directory.
 
 ### 02_plot_fits.R
 
