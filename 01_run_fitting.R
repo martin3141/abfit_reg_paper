@@ -79,7 +79,7 @@ for (n in 1:nrow(para_df)) {
                            opts = abfit_reg_options, parallel = parallel,
                            cl = cl)
   
-  abfit_reg_res <- abfit_reg_res |> scale_amp_molar(wref)
+  abfit_reg_res <- abfit_reg_res |> scale_amp_legacy(wref)
   
   # lcmodel
   lcm_options   <- c("NSIMUL=0", "NRATIO=0")
