@@ -55,7 +55,7 @@ for (n in 1:nrow(para_df)) {
   abfit_res     <- fit_mrs(metab, basis, method = "abfit", opts = abfit_options,
                            parallel = parallel, cl = cl)
   
-  abfit_res     <- abfit_res |> scale_amp_molar(wref)
+  abfit_res     <- abfit_res |> scale_amp_legacy(wref)
   
   # abfit-reg
   log_print("running abfit-reg")

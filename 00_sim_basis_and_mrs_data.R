@@ -64,6 +64,8 @@ for (n in 1:nrow(para_df)) {
   # initialise structure to store simulated spectra
   mrs_data_list <- vector("list", N)
   
+  neg_lbs <- 0
+  
   for (n in 1:N) {
     if (prob_dist == "norm") {
       lbs    <- rnorm(length(basis$names), lb_ex, lb_sd) 
@@ -76,12 +78,15 @@ for (n in 1:nrow(para_df)) {
     } else {
       stop("prob_dist not recognised")
     }
-    lbs[lbs < 0] <- 0
+    neg_lbs <- neg_lbs + sum(lbs < 0.1)
+    lbs[lbs < 0] <- 0 # condition was never met for the published results
     mrs_sim <- basis2mrs_data(basis, sum_elements = TRUE, amps = amps,
                               shifts = shifts, lbs = lbs)
     mrs_sim <- mrs_sim |> lb(4) |> add_noise_spec_snr(spec_snr)
     mrs_data_list[[n]] <- mrs_sim
   }
+  
+  # print(neg_lbs) # keep track of any negative values
   
   metab <- append_dyns(mrs_data_list)
   
