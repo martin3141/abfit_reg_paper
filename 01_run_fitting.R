@@ -22,9 +22,15 @@ if (parallel) {
 time_str <- format(Sys.time(), "%d_%H_%M_%S")
 log_open(paste0(time_str, ".log"), compact = TRUE, show_notes = FALSE)
 
-# simulation "runs" to cycle though
-para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
-                      prob_dist = rep(c("norm", "unif"), each = 4))
+
+# simulation "runs" to cycle though 
+para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 3),
+                      prob_dist = rep(c("norm", "unif", "norm_fix_freq"),
+                                      each = 4))
+
+# old version
+# para_df <- data.frame(spec_snr  = rep(c(10, 30, 60, 100), 2),
+#                       prob_dist = rep(c("norm", "unif"), each = 4))
 
 # read basis
 basis <- read_basis(file.path("synth_data", "brain_basis.basis"),
