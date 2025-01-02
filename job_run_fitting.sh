@@ -4,7 +4,7 @@
 #SBATCH --ntasks 24
 #SBATCH --nodes 1
 #SBATCH --cpus-per-task 1
-#SBATCH --time 02:00:00
+#SBATCH --time 03:00:00
 #SBATCH --account wilsonmp-mrs-analysis
 #SBATCH --qos bbdefault
 

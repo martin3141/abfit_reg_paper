@@ -42,7 +42,8 @@ for (n in 1:nrow(para_df)) {
   # prob. distribution of shifts and T2s
   prob_dist <- para_df$prob_dist[n]
   
-  input_f <- paste0("metab_snr_", spec_snr, "_pdist_", prob_dist, ".nii.gz")
+  input_f <- paste0("metab_snr_", spec_snr, "_pdist_", substr(prob_dist, 1, 4),
+                    ".nii.gz")
   
   metab <- read_mrs(file.path("synth_data", input_f))
   N     <- Ndyns(metab)
@@ -59,8 +60,16 @@ for (n in 1:nrow(para_df)) {
   
   # abfit-reg
   log_print("running abfit-reg")
+  
+  # fix the frequency shifts for abfit-ref when prob_dist is "norm_fix_freq"
+  if (prob_dist == "norm_fix_freq") {
+    mbs <- 1e-6
+  } else{
+    mbs <- Inf
+  }
+  
   abfit_reg_options <- abfit_opts(lb_reg = "lcm_compat", lb_init = "lcm_compat",
-                                  freq_reg = 0.004, max_basis_shift = Inf,
+                                  freq_reg = 0.004, max_basis_shift = mbs,
                                   max_basis_damping = Inf,
                                   max_shift_fine = 0.05, maxiters = 128,
                                   adaptive_bl_comps_pppm = TRUE,

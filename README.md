@@ -29,7 +29,7 @@ from : <https://github.com/schorschinho/LCModel>
 01_run_fitting.R is configured to be run on a computer cluster with 24 cores and
 the accompanying slurm job file is included : job_run_fitting.sh. The `parallel`
 and `n_cores` variables in the R script may need to edited if running on a PC.
-This script will take *significantly* longer than the others (approx 60 mins on 
+This script will take *significantly* longer than the others (approx 90 mins on 
 a modern cluster running in parallel across 24 cores).
 
 ## Expected output
