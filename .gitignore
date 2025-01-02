@@ -6,3 +6,4 @@ slurm*
 .*
 !.gitignore
 .Rproj.user
+Rplots.pdf
