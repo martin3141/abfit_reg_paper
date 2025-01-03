@@ -78,88 +78,42 @@ for (n in 1:4) {
 signif_map <- c("*"=0.05, "**"=0.005, "***"=0.0005)
 comps <- list(c("ABfit-reg", "ABfit-reg-ff"))
 
-ggplot(data = fit_errors_plot[[2]], aes(x = method, y = error)) +
-  geom_boxplot(width = 0.15, outliers = FALSE) +
-  geom_signif(comparisons = comps, test = "t.test",
-              map_signif_level = signif_map,
-              y_position = 160, tip_length = 0.01, textsize = 3.5,
-              vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 160 * 1.28))
+a <- ggplot(data = fit_errors_plot[[1]], aes(x = method, y = error)) +
+     geom_boxplot(width = 0.15, outliers = FALSE) +
+     geom_signif(comparisons = comps, test = "t.test",
+                 map_signif_level = signif_map,
+                 y_position = 160, tip_length = 0.01, textsize = 3.5,
+                 vjust = -0.2) +
+     xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 160 * 1.28))
 
+b <- ggplot(data = fit_errors_plot[[2]], aes(x = method, y = error)) +
+     geom_boxplot(width = 0.15, outliers = FALSE) +
+     geom_signif(comparisons = comps, test = "t.test",
+                 map_signif_level = signif_map,
+                 y_position = 55, tip_length = 0.01, textsize = 3.5,
+                 vjust = -0.2) +
+     xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 55 * 1.28))
 
-  
-  
-  
-  
-break
+c <- ggplot(data = fit_errors_plot[[3]], aes(x = method, y = error)) +
+     geom_boxplot(width = 0.15, outliers = FALSE) +
+     geom_signif(comparisons = comps, test = "t.test",
+                 map_signif_level = signif_map,
+                 y_position = 50, tip_length = 0.01, textsize = 3.5,
+                 vjust = -0.2) +
+     xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 50 * 1.28))
 
-max_y <- fit_errors_plot[[1]] |> filter(method == "ABfit") |> select(error) |> 
-  unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
-  as.numeric()
-
-# signif_map <- function(p) sprintf("p = %.2g", p)
-signif_map <- c("*"=0.05, "**"=0.005, "***"=0.0005)
-comps <- list(c("ABfit-reg", "LCModel"), c("ABfit", "ABfit-reg"))
-
-plot_a <- ggplot(data = fit_errors_plot[[1]], aes(x = method, y = error)) +
-  geom_boxplot(width = 0.15, outliers = FALSE) +
-  geom_signif(comparisons = comps, test = "t.test",
-              map_signif_level = signif_map,
-              y_position = max_y, tip_length = 0.01, textsize = 3.5,
-              vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.28))
-
-max_y <- fit_errors_plot[[2]] |> filter(method == "ABfit") |> select(error) |> 
-  unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
-  as.numeric()
-
-plot_b <- ggplot(data = fit_errors_plot[[2]], aes(x = method, y = error)) +
-  geom_boxplot(width = 0.15, outliers = FALSE) +
-  geom_signif(comparisons = comps, test = "t.test",
-              map_signif_level = signif_map,
-              y_position = max_y, tip_length = 0.015, textsize = 3.5,
-              vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.25))
-
-max_y <- fit_errors_plot[[3]] |> filter(method == "ABfit") |> select(error) |> 
-  unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
-  as.numeric()
-
-plot_c <- ggplot(data = fit_errors_plot[[3]], aes(x = method, y = error)) +
-  geom_boxplot(width = 0.15, outliers = FALSE) +
-  geom_signif(comparisons = comps, test = "t.test",
-              map_signif_level = signif_map,
-              y_position = max_y, tip_length = 0.008, textsize = 3.5,
-              vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.35))
-
-max_y <- fit_errors_plot[[4]] |> filter(method == "ABfit") |> select(error) |> 
-  unlist() |>  as.numeric() |> (\(x) quantile(x)[4] + 1.5 * IQR(x))() |> 
-  as.numeric()
-
-plot_d <- ggplot(data = fit_errors_plot[[4]], aes(x = method, y = error)) +
-  geom_boxplot(width = 0.15, outliers = FALSE) +
-  geom_signif(comparisons = comps, test = "t.test",
-              map_signif_level = signif_map,
-              y_position = max_y * 0.9, tip_length = 0.006, textsize = 3.5,
-              vjust = -0.2) +
-  xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, max_y * 1.34))
+d <- ggplot(data = fit_errors_plot[[4]], aes(x = method, y = error)) +
+     geom_boxplot(width = 0.15, outliers = FALSE) +
+     geom_signif(comparisons = comps, test = "t.test",
+                 map_signif_level = signif_map,
+                 y_position = 50, tip_length = 0.01, textsize = 3.5,
+                 vjust = -0.2) +
+     xlab(NULL) + ylab(error~(mM^2)) + ylim(c(0, 50 * 1.28))
 
 labs <- paste0(c("SNR = "), c(10, 30, 60, 100))
-
 options(warn = -1)
-plot_grid(plot_a, plot_b, plot_c, plot_d, labels = labs, label_size = 11, 
-          scale = 0.95, label_x = 0.38, align = "v")
+plot_grid(a, b, c, d, labels = labs, label_size = 11, scale = 0.95,
+          label_x = 0.38, align = "v")
 options(warn = 0)
 
-ggsave(file.path("figures", "fit_res_norm.pdf"), width = 6, height = 5)
-
-lcmodel_errors <- sapply(fit_errors_plot, \(x) x |> 
-                         filter(method == "LCModel") |> select(error) |> 
-                         colMeans() |> as.numeric())
-
-abfit_reg_errors <- sapply(fit_errors_plot, \(x) x |> 
-                           filter(method == "ABfit-reg") |> select(error) |> 
-                           colMeans() |> as.numeric())
-
-data.frame(as.numeric(SNRS), abfit_reg_errors, lcmodel_errors)
+ggsave(file.path("figures", "fit_res_norm_ff.pdf"), width = 6, height = 5)
