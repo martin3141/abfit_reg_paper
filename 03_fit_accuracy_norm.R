@@ -111,4 +111,17 @@ abfit_reg_errors <- sapply(fit_errors_plot, \(x) x |>
                            filter(method == "ABfit-reg") |> select(error) |> 
                            colMeans() |> as.numeric())
 
-data.frame(as.numeric(SNRS), abfit_reg_errors, lcmodel_errors)
+abfit_errors <- sapply(fit_errors_plot, \(x) x |> 
+                       filter(method == "ABfit") |> select(error) |> 
+                       colMeans() |> as.numeric())
+
+mean_errors <- data.frame(as.numeric(SNRS), abfit_errors, abfit_reg_errors,
+                          lcmodel_errors)
+
+# percentage reduction in error for abfit_reg vs abfit
+(mean_errors$abfit_errors - mean_errors$abfit_reg_errors) / 
+  mean_errors$abfit_errors * 100
+
+# percentage reduction in error for abfit_reg vs lcmodel 
+(mean_errors$lcmodel_errors - mean_errors$abfit_reg_errors) / 
+  mean_errors$lcmodel_errors * 100
