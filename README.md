@@ -59,3 +59,7 @@ directory.
 ### 05_fit_agreement.R
 
 "ba_plots.pdf" will be saved in the "figures" directory.
+
+### 06_fit_accuracy_norm_fix_freq.R
+
+"fit_res_norm_ff.pdf" will be saved in the "figures" directory.
