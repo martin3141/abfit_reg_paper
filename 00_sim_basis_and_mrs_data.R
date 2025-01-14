@@ -1,7 +1,9 @@
 # install any necessary packages
-if (!require("pacman")) install.packages("pacman")
+if (!require("pacman")) install.packages("pacman",repos = "http://cran.us.r-project.org")
 pacman::p_load(spant, logr, cowplot, ggplot2, ggsignif, dplyr, cowplot, 
-               parallel, doParallel)
+               parallel, doParallel,gridGraphics)
+
+set_lcm_cmd('/Users/pfuchs/Library/CloudStorage/OneDrive-UniversiteitAntwerpen/Reviews/MRM-24-25374/abfit_reg_paper/')
 
 # create an output dir
 dir.create("synth_data", showWarnings = FALSE)
